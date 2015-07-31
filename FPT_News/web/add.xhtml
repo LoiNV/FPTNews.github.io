@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <h1>Post News</h1>
+                    <h:form>
+                        <h:panelGrid columns="4" styleClass="left,centered" width="70%">
+                            <h:outputLabel value="Title: "/>
+                            <p:inputText value="${newsBean.title}" size="70"/>
+                            <h:outputLabel value="Category: "/>
+                            <p:selectOneMenu value="#{newsBean.category}">
+                                <f:selectItem itemLabel="Category 1" itemValue="Category 1" />
+                                <f:selectItem itemLabel="Category 2" itemValue="Category 2" />
+                                <f:selectItem itemLabel="Category 3" itemValue="Category 3" />
+                            </p:selectOneMenu>
+                        </h:panelGrid><br/>
+
+
+                        <h:outputLabel value="DesCription:"/><br/>
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{newsBean.descript}" width="800" height="350"/>
+
+                        <h:panelGrid columns="2" style="margin-top: 10px;" >
+                            <h:commandButton value="Submit" action="${newsBean.add()}" style="margin-right: 5px;"/>
+
+                            <h:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" />
+                        </h:panelGrid>
+<!--                        <h:commandButton value="Post News" action="${newsBean.add()}"/>-->
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
