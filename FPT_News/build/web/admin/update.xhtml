@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./index.xhtml">
+
+            <ui:define name="content">
+                <div id="page-add">
+                    <h1>Update News</h1>
+                    
+                    <h:form style="margin-left: 30px">
+                        <p:growl id="growl" life="2000" />
+                        <p:messages id="msgs"/>
+                        
+                        <h:inputHidden value="${newsBean.id}"/>
+                        <h:inputHidden value="${newsBean.name}"/>
+                        
+                        <h:panelGrid columns="4" styleClass="left,centered" width="755"> 
+                            
+                            <p:inputText id ="title" requiredMessage="Title not empty and maximum 100 character" 
+                                         placeholder="Title" value="${newsBean.title}" size="60" required="true"
+                                         onchange="this.value=this.value.trim()">
+                                <f:validateLength minimum="1" maximum="100"/>
+                            </p:inputText>
+                            
+                            <h:outputLabel value="Category: "/>
+                            <p:selectOneMenu value="#{newsBean.category}">
+                                <f:selectItems value="#{newsBean.catagorys}" />
+                            </p:selectOneMenu>
+                            
+                        </h:panelGrid><br/>
+                        
+                        <p:inputTextarea placeholder="Description" id="descript" required="true" 
+                                         requiredMessage="Description not empty and maximum 200 character"
+                                         value="#{newsBean.descript}" style="width: 746px; height: 50px;"
+                                         onchange="this.value=this.value.trim()">
+                            <f:validateLength minimum="1" maximum="200"/>
+                        </p:inputTextarea><br/><br/>  
+                        
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{newsBean.details}" width="746" 
+                                  required="true" validatorMessage="Content length is less than allowable minimum of '30'"> 
+                            <f:validateLength minimum="30"/>
+                        </p:editor>
+                        
+                        <h:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 10px;" >
+                            <h:commandButton value="Submit" action="${newsBean.doUpdate()}" style="margin-right: 5px;"/>
+                            <h:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" />
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

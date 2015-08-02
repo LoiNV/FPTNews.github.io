@@ -23,8 +23,14 @@ body {
 
 #page-wrapper {
     width: 100%;
-    padding: 0;
+    padding: 0px;
     background-color: #fff;
+}
+#page-add {
+    width: 900px;
+    padding: 0px;
+    background-color: #fff;
+    padding: 5px;
 }
 
 .huge {
@@ -38,7 +44,11 @@ body {
     }
 
     #page-wrapper {
-        padding: 10px;
+        padding: 5px;
+    }
+    
+    #page-add {
+        padding: 5px;
     }
 }
 

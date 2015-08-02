@@ -6,13 +6,16 @@
 package bean;
 
 import dao.DataAccess;
+import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import model.News;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -20,9 +23,8 @@ import model.News;
  */
 @ManagedBean
 @RequestScoped
-public class NewsBean {
-
-    private List<News> listNews;
+public class NewsBean implements Serializable {
+    
     private int id;
     private String name;
     private String date;
@@ -31,40 +33,63 @@ public class NewsBean {
     private String details;
     private String category;
     private String img;
-    
-    private HtmlDataTable newsTable;
+
+    private List<News> listNews;
+    private DataTable newsTable;
+    private List<String> catagorys;
+    private List<News> listFiltered;
+    private News selectNews;
 
     public NewsBean() {
+        
     }
-
-    public String add() {
+    
+    public String getImgPath(String str){
+        List<String> list = new LinkedList<>();
+        list.add(".png");
+        list.add(".jpg");
+        list.add(".bmp");
+        list.add(".gif");
+        
+        int i1 = str.indexOf("img src=\"");
+        int i2 = 0;
+        for (String e : list) {
+            if ((str.toLowerCase()).contains(e)) {
+                i2 = str.indexOf(e);
+                break;
+            }
+        }
+        if (i1>0 && i2>0) {
+            return str.substring(i1, i2-i1+10).replaceAll("img src=\"", "");
+        }
+        
+        return"";
+    }
+    
+    public String add() {        
         DataAccess da = new DataAccess();
-        News news = new News( name, title, descript, details, category, img);
+        this.name = "admin";        
+        this.img = getImgPath(details);
+        if ((title.trim()).isEmpty()) {
+            title="Empty";
+        }
+        News news = new News(name, title, descript, details, category, img);
         boolean rs = da.addNews(news);
         if (rs) {
-            return "admin";
+            return "show";
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error"));
             return "";
         }
     }
 
-    public String remove(){
+    public String remove() {
         News n = (News) newsTable.getRowData();
         DataAccess da = new DataAccess();
-        boolean rs = da.removeNews(n.getId());
-        FacesMessage msg = null;
-        if (rs) {
-            msg = new FacesMessage(n.getName()+" was removed");
-        }else{
-            msg = new FacesMessage("Error removing");
-        }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        
-        return "admin";
+        da.removeNews(n.getId());
+        return "";
     }
-    
-    public String update(){
+
+    public String update() {
         News n = (News) newsTable.getRowData();
         this.id = n.getId();
         this.name = n.getName();
@@ -75,34 +100,55 @@ public class NewsBean {
         this.img = n.getImg();
         return "update";
     }
-    
-    public String doUpdate(){
+
+    public String doUpdate() {
         News n = new News(name, title, descript, details, category, img);
         n.setId(id);
         DataAccess da = new DataAccess();
-        boolean rs = da.updateNews(n);
-        FacesMessage msg = null;
-        if (rs) {
-            msg = new FacesMessage(n.getName()+" was updated");
-        }else{
-            msg = new FacesMessage("Error updating");
-        }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        
-        return "admin";
+        da.updateNews(n);
+        return "show";
     }
 
-    public HtmlDataTable getNewsTable() {
+    public List<News> getListFiltered() {
+        return listFiltered;
+    }
+
+    public void setListFiltered(List<News> listFiltered) {
+        this.listFiltered = listFiltered;
+    }
+
+    public List<String> getCatagorys() {
+        catagorys = new LinkedList<>();
+        catagorys.add("Category 1");
+        catagorys.add("Category 2");
+        catagorys.add("Category 3");
+        catagorys.add("Category 4");
+        return catagorys;
+    }
+
+    public void setCatagorys(List<String> catagorys) {
+        this.catagorys = catagorys;
+    }
+
+    public News getSelectNews() {
+        return selectNews;
+    }
+
+    public void setSelectNews(News selectNews) {
+        this.selectNews = selectNews;
+    }
+    
+    public DataTable getNewsTable() {
         return newsTable;
     }
 
-    public void setNewsTable(HtmlDataTable newsTable) {
+    public void setNewsTable(DataTable newsTable) {
         this.newsTable = newsTable;
     }
 
     public List<News> getListNews() {
         DataAccess da = new DataAccess();
-        this.listNews = da.getAll();
+        this.listNews = da.getAll();        
         return listNews;
     }
 

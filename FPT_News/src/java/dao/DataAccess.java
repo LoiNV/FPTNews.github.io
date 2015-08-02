@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +26,12 @@ import model.News;
  */
 public class DataAccess {
  
+//    public static void main(String[] args) {
+//        List<News> list = new DataAccess().getAll();
+//        for (News n : list) {
+//            System.out.println(n.getTitle());
+//        }
+//    }
     public List<News> getAll() {
         List<News> list = new LinkedList<>();
         try {            
@@ -57,7 +64,7 @@ public class DataAccess {
             Connection conn = DBUtil.getConnection();
             PreparedStatement pre = conn.prepareStatement("insert into tblNews values (?,?,?,?,?,?,?)");
             pre.setString(1, n.getName());
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
             pre.setString(2, dateFormat.format(date));
             pre.setString(3, n.getTitle());
@@ -96,7 +103,7 @@ public class DataAccess {
             Connection conn = DBUtil.getConnection();
             PreparedStatement pre = conn.prepareStatement("update tblNews set name=?,dt=?,title=?,descript=?,details=?,category=?,img=? where id=?");
             pre.setString(1, n.getName());
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
             pre.setString(2, dateFormat.format(date));
             pre.setString(3, n.getTitle());
