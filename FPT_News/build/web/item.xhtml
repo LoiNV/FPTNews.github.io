@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:body>
+
+        <ui:composition template="./index.xhtml">
+
+            <ui:define name="content">
+                <!-- Content -->
+                <section id="content">
+                    <div class="container">
+
+                        <div class="breadcrumbs column">
+                            <p><a href="#">Trang chủ</a>   \\   <a href="#">${navigate.selectNews.category}</a>   \\   #{navigate.selectNews.title}</p>
+                        </div>
+
+                        <!-- Main Content -->
+                        <div class="main-content">
+
+                            <!-- Single -->
+                            <div class="column-two-third single">
+                                <h:graphicImage url="#{navigate.selectNews.img}"  width="540" height="372"/>
+
+                                <h5 class="title">
+                                    <h:outputText value="${navigate.selectNews.title}"/>
+                                </h5>
+                                <span class="meta">${navigate.selectNews.date}   \\   <a href="#">${navigate.selectNews.category}</a> </span>
+
+                                <p>
+                                    <h:outputText value="#{navigate.selectNews.details}" escape="false" />
+                                </p>
+                                <ul class="sharebox">
+                                    <li><a href="#"><span class="twitter">Tweet</span></a></li>
+                                    <li><a href="#"><span class="pinterest">Pin it</span></a></li>
+                                    <li><a href="#"><span class="facebook">Like</span></a></li>
+                                </ul>
+
+
+                                <div class="authorbox">
+                                    <img src="resources/img/trash/author.png" alt="MyPassion" />
+                                    <h6>MyPassion.</h6>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sodales dapibus dui, sed iaculis metus facilisis sed. Etiam scelerisque molestie purus vel mollis. Mauris dapibu quam id turpis dignissim rutrum.</p>
+                                </div>
+
+                                <div class="relatednews">
+                                    <h5 class="line"><span>Related News.</span></h5>
+                                    <p:dataGrid var="n" value="#{navigate.itemByCategory}" columns="4"  rows="1">
+                                        <h:panelGrid columns="1" style="width:100%;">
+                                                <h:graphicImage url="#{n.img}" width="140" height="86"/> 
+
+                                                <h:outputText value="#{n.date}" />
+                                                <h:outputText value="#{n.title}" />
+
+                                            </h:panelGrid>
+
+                                    </p:dataGrid>
+
+                                </div>
+
+                                <div class="comments">
+                                    <h5 class="line"><span>Comments.</span></h5>
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                <div class="commment-text-wrap">
+                                                    <div class="comment-data">
+                                                        <p><a href="#" class="url">MyPassion</a> <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                    </div>
+                                                    <div class="comment-text">Curabitur nunc mauris, <a href="#">link test</a> id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                </div>
+
+                                            </div>
+                                            <ul class="children">
+                                                <li>
+                                                    <div>
+                                                        <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                        <div class="commment-text-wrap">
+                                                            <div class="comment-data">
+                                                                <p><a href="#" class="url">MyPassion</a> <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                            </div>
+                                                            <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <ul class="children">
+                                                        <li>
+                                                            <div>
+                                                                <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                                <div class="commment-text-wrap">
+                                                                    <div class="comment-data">
+                                                                        <p><a href="#" class="url">MyPassion</a> <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                                    </div>
+                                                                    <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                                </div>
+                                                            </div>
+
+                                                            <ul class="children">
+                                                                <li>
+                                                                    <div>
+                                                                        <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                                        <div class="commment-text-wrap">
+                                                                            <div class="comment-data">
+                                                                                <p><a href="#" class="url">MyPassion</a> <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                                            </div>
+                                                                            <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <ul class="children">
+                                                                        <li>
+                                                                            <div>
+                                                                                <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                                                <div class="commment-text-wrap">
+                                                                                    <div class="comment-data">
+                                                                                        <p>MyPassion <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                                                    </div>
+                                                                                    <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <ul class="children">
+                                                                                <li>
+                                                                                    <div>
+                                                                                        <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                                                        <div class="commment-text-wrap">
+                                                                                            <div class="comment-data">
+                                                                                                <p><a href="#" class="url">MyPassion</a> <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                                                            </div>
+                                                                                            <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ul>
+
+                                                                        </li>
+                                                                    </ul>
+
+                                                                </li>
+                                                            </ul>
+
+                                                        </li>
+                                                    </ul>
+
+                                                    <ul class="children">
+                                                        <li>
+                                                            <div>
+                                                                <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                                <div class="commment-text-wrap">
+                                                                    <div class="comment-data">
+                                                                        <p><a href="#" class="url">MyPassion </a><br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                                    </div>
+                                                                    <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+
+                                                </li>
+                                            </ul>
+                                            <ul class="children">
+                                                <li>
+                                                    <div>
+                                                        <div class="comment-avatar"><img src="resources/img/avatar.png" alt="MyPassion" /></div>
+                                                        <div class="commment-text-wrap">
+                                                            <div class="comment-data">
+                                                                <p><a href="#" class="url">MyPassion</a> <br /> <span>January 12, 2013 - <a href="#" class="comment-reply-link">reply</a></span></p>
+                                                            </div>
+                                                            <div class="comment-text">Curabitur nunc mauris, imperdiet id dictum quis, aliquet vel diam. Aliquam gravida, augue et dictum hendrerit, nisl erat congue elit, et molestie magna sapien cursus tortor.</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="comment-form">
+                                    <h5 class="line"><span>Leave a reply.</span></h5>
+                                    <form action="" method="post">
+                                        <div class="form">
+                                            <label>Name*</label>
+                                            <div class="input">
+                                                <input type="text" class="name" />
+                                            </div>
+                                        </div>
+                                        <div class="form">
+                                            <label>Email*</label>
+                                            <div class="input">
+                                                <input type="text" class="name" />
+                                            </div>
+                                        </div>
+                                        <div class="form">
+                                            <label>Website</label>
+                                            <div class="input">
+                                                <input type="text" class="name" />
+                                            </div>
+                                        </div>
+                                        <div class="form">
+                                            <label>Comment*</label>
+                                            <textarea rows="10" cols="20"></textarea>
+                                        </div>
+                                        <input type="submit" class="post-comment" value="Post Comment" />
+                                    </form>
+                                </div>
+
+                            </div>
+                            <!-- /Single -->
+
+                        </div>
+                        <!-- /Main Content -->
+
+                        <!-- Left Sidebar -->
+                        <div class="column-one-third">
+                            <div class="sidebar">
+                                <h5 class="line"><span>Stay Connected.</span></h5>
+                                <ul class="social">
+                                    <li>
+                                        <a href="#" class="facebook"><i class="icon-facebook"></i></a>
+                                        <span>6,800 <br/> <i>fans</i></span>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="twitter"><i class="icon-twitter"></i></a>
+                                        <span>12,475 <br/> <i>followers</i></span>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="rss"><i class="icon-rss"></i></a>
+                                        <span><i>Subscribe via rss</i></span>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+
+                            <div class="sidebar">
+                                <h5 class="line"><span>Ads Spot.</span></h5>
+                                <ul class="ads125">
+                                    <li><a href="#"><img src="resources/img/banner/3.png" alt="MyPassion" /></a></li>
+                                    <li><a href="#"><img src="resources/img/banner/1.png" alt="MyPassion" /></a></li>
+                                    <li><a href="#"><img src="resources/img/banner/2.png" alt="MyPassion" /></a></li>
+                                    <li><a href="#"><img src="resources/img/banner/4.png" alt="MyPassion" /></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="sidebar">
+                                <h5 class="line"><span>Ads Spot.</span></h5>
+                                <a href="#"><img src="resources/img/tf_300x250_v1.gif" alt="MyPassion" /></a>     
+                            </div>
+
+
+                        </div>
+                        <!-- /Left Sidebar -->
+
+                    </div>    
+                </section>
+                <!-- / Content -->
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

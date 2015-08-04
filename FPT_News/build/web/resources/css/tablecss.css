@@ -13,6 +13,7 @@
 }
 
 .ui-datatable tbody td.id,
+.ui-datatable tbody td.name,
 .ui-datatable tbody td.edit,
 .ui-datatable tbody td.date{    
     text-align: center;

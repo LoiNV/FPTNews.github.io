@@ -1,12 +1,426 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        
-    </h:body>
-</html>
 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="News - Clean HTML5 and CSS3 responsive template"/>
+        <meta name="author" content="MyPassion"/>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+        <title>News - FPT Students</title>
+
+        <link rel="shortcut icon" href="resources/img/sms-4.ico" />
+        <!-- STYLES -->
+        <h:outputStylesheet name="./css/superfish.css"/>
+        <h:outputStylesheet name="./css/fontello/fontello.css"/>
+        <h:outputStylesheet name="./css/flexslider.css"/>
+        <h:outputStylesheet name="./css/ui.css"/>
+        <h:outputStylesheet name="./css/base.css"/>
+        <h:outputStylesheet name="./css/style.css"/>
+        <h:outputStylesheet name="./css/960.css"/>
+        <h:outputStylesheet name="./css/devices/1000.css"/>
+        <h:outputStylesheet name="./css/devices/767.css"/>
+        <h:outputStylesheet name="./css/devices/479.css"/>
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+    </h:head>
+
+    <h:body>
+        <!-- Body Wrapper -->
+        <div class="body-wrapper">
+            <div class="controller">
+                <div class="controller2">
+                    <div >
+                        <ui:insert name="top">
+                            <!-- Header -->
+                            <header id="header">
+                                <div class="container">
+                                    <div class="column">
+                                        <div class="logo">
+                                            <a href="index.xhtml"><img src="resources/img/logo.png" alt="logo FPT" /></a>
+                                        </div>
+
+                                        <div class="search">
+                                            <h:form >
+                                                <h:inputText id="search" value="#{navigate.keySearch}" a:placeholder="Search"
+                                                             valueChangeListener="#{navigate.searchStringValueChanged}"
+                                                             style="width:220px; height: 25px; margin-top: 25px;" >
+                                                    <f:ajax  execute="search" render="output" event="blur" />
+                                                </h:inputText>                                                
+                                            </h:form>
+                                        </div>
+
+                                        <!-- Nav -->
+                                        <nav id="nav">
+                                            <h:form>
+                                                <ul class="sf-menu">
+                                                    <li class="current"><a href="index.xhtml">Trang Chủ.</a></li>
+                                                    <li> 
+                                                        <p:commandLink value="Cóc Tin" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Tin"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    <li>
+                                                        <p:commandLink value="Cóc Sống" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Sống"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    <li>
+                                                        <p:commandLink value="Cóc Học" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Học"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    <li>
+                                                        <p:commandLink value="Cóc Làm" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Làm"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    <li>
+                                                        <p:commandLink value="Cóc Gương" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Gương"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    <li>
+                                                        <p:commandLink value="Cóc Cụ" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Cụ"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    <li>
+                                                        <p:commandLink value="Cóc Buôn" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="Cóc Buôn"/>
+                                                        </p:commandLink>
+                                                    </li>                                                    
+                                                    <li>
+                                                        <p:commandLink value="FPT Edu" action="#{navigate.categoryPage()}" >
+                                                            <f:setPropertyActionListener target="#{navigate.selectCategory}" value="FPT Edu"/>
+                                                        </p:commandLink>
+                                                    </li>
+                                                    
+                                                </ul>
+                                            </h:form>
+                                        </nav>
+                                        <!-- /Nav -->
+                                    </div>
+                                </div>
+                            </header>
+                            <!-- /Header -->
+                        </ui:insert>
+                    </div>
+
+                    <div class="center_content">
+                        <ui:insert name="content">
+                            <!-- Slider -->
+                            <section id="slider">
+                                <div class="container">
+                                    <div class="main-slider">
+                                        <h:form>
+                                            <p:imageSwitch effect="fade" widgetVar="switcher" >
+                                                <ui:repeat value="#{newsBean.randomImage}" var="n" >
+                                                    <div>
+                                                        <div class="badg">
+                                                            <p><a href="#">Nổi Bật.</a></p>
+                                                        </div>
+                                                        <a href="#"><p:graphicImage url="#{n.img}" width="540" height="420" id="image" /></a>
+                                                        <p class="caption">
+                                                            <h:commandLink style="color: white;" value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                            </h:commandLink> #{n.descript} 
+                                                        </p>
+                                                    </div>
+
+                                                </ui:repeat>
+                                            </p:imageSwitch>
+                                        </h:form>
+                                        <p:commandButton type="button" onclick="PF('switcher').previous();"
+                                                         icon="ui-icon-circle-triangle-w" id="prev"/>
+                                        <p:commandButton type="button" onclick="PF('switcher').next();"
+                                                         icon="ui-icon-circle-triangle-e" id="next"/>
+
+
+                                    </div>
+
+                                    <div class="slider2">
+                                        <h:form>
+                                            <p:imageSwitch effect="fade" >
+                                                <ui:repeat value="#{newsBean.randomImage}" var="n" >
+                                                    <div>
+                                                        <div class="badg">
+                                                            <p><a href="#">Mới.</a></p>
+                                                        </div>
+                                                        <a href="#"><p:graphicImage url="#{n.img}" width="450" height="260" id="image" /></a>
+                                                        <p class="caption">
+                                                            <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                            </h:commandLink>
+                                                            #{n.descript}
+                                                        </p>
+                                                    </div>
+
+                                                </ui:repeat>
+                                            </p:imageSwitch>
+                                        </h:form>
+                                    </div>
+
+                                    <div class="slider3">
+                                        <h:form>
+                                            <p:imageSwitch effect="fade" >
+                                                <ui:repeat value="#{newsBean.randomImage}" var="n" >
+                                                    <div>
+                                                        <a href="#"><p:graphicImage url="#{n.img}" width="250" height="150" id="image" /></a>
+                                                        <p class="caption">
+                                                            <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                            </h:commandLink> 
+                                                        </p>
+                                                    </div>
+
+                                                </ui:repeat>
+                                            </p:imageSwitch>
+                                        </h:form>
+                                    </div>
+
+                                    <div class="slider3">
+                                        <h:form>
+                                            <p:imageSwitch effect="fade">
+                                                <ui:repeat value="#{newsBean.randomImage}" var="n" >
+                                                    <div>
+                                                        <a href="#"><p:graphicImage url="#{n.img}" width="250" height="150" id="image" /></a>
+                                                        <p class="caption">
+                                                            <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                            </h:commandLink>
+                                                        </p>
+                                                    </div>
+
+                                                </ui:repeat>
+                                            </p:imageSwitch>
+                                        </h:form>
+                                    </div>
+
+                                </div>    
+                            </section>
+                            <!-- / Slider -->
+
+                            <!-- Content -->
+                            <section id="content">
+                                <div class="container">
+                                    <!-- Main Content -->
+                                    <div class="main-content">
+
+                                        <!-- Popular News -->
+                                        <div class="column-one-third">
+                                            <h5 class="line"><span>Tin Nổi Bật</span></h5>
+                                            <div class="outertight">
+                                                <h:form> 
+                                                    <p:dataList var="n" value="#{newsBean.randomImage}" >
+                                                        <h:panelGrid columns="2" style="width:100%">
+                                                            <h:graphicImage url="#{n.img}" width="100" height="86"/>
+
+                                                            <p:outputPanel style="margin-left: 5px; ">
+                                                                <h:panelGrid columns="1" cellpadding="5">
+                                                                    <h:outputText value="#{n.date}" style="color: red"/>
+                                                                    <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                        <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                                    </h:commandLink>
+                                                                </h:panelGrid>
+                                                            </p:outputPanel>
+                                                        </h:panelGrid>
+
+                                                    </p:dataList>
+                                                </h:form>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- /Popular News -->
+
+                                        <!-- Hot News -->
+                                        <div class="column-one-third">
+                                            <h5 class="line"><span>Tin Hot</span></h5>
+                                            <div class="outertight m-r-no">
+                                                <h:form> 
+                                                    <p:dataList var="n" value="#{newsBean.randomImage}">
+                                                        <h:panelGrid columns="2" style="width:100%">
+                                                            <h:graphicImage url="#{n.img}" width="100" height="86"/>
+
+                                                            <p:outputPanel style="margin-left: 5px; ">
+                                                                <h:panelGrid columns="1" cellpadding="5">
+                                                                    <h:outputText value="#{n.date}" style="color: red"/>
+                                                                    <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                        <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                                    </h:commandLink>
+                                                                </h:panelGrid>
+                                                            </p:outputPanel>
+                                                        </h:panelGrid>
+
+                                                    </p:dataList>
+                                                </h:form>
+                                            </div>
+
+                                        </div>
+                                        <!-- /Hot News -->
+
+                                        <!-- World News -->
+                                        <div class="column-two-third">
+                                            <h5 class="line">
+                                                <span>Tin Ngẫu Nhiên</span>
+                                                <div class="navbar">
+                                                    <a id="next2" class="next" href="#"><span></span></a>	
+                                                    <a id="prev2" class="prev" href="#"><span></span></a>
+                                                </div>
+                                            </h5>
+                                            <h:form>
+                                                <p:imageSwitch effect="turnDown" >
+                                                    <ui:repeat value="#{newsBean.randomImage}" var="n" >
+                                                        <h:panelGrid columns="1" >
+                                                            <a href="#"><p:graphicImage url="#{n.img}" width="540" height="300" id="image" /></a>
+                                                            <div>
+                                                                <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                    <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                                </h:commandLink> 
+                                                                #{n.descript}
+                                                            </div>
+
+                                                        </h:panelGrid>                                                        
+                                                    </ui:repeat>
+                                                </p:imageSwitch>
+                                            </h:form>
+
+                                            <div class="outerwide" style="margin-top: 20px;">
+                                                <h:form> 
+                                                    <p:dataGrid var="n" value="#{newsBean.randomImage}" rows="3" columns="2">
+                                                        <h:panelGrid columns="2" style="width:100%;">
+                                                            <h:graphicImage url="#{n.img}" width="100" height="86"/>
+
+                                                            <p:outputPanel style="margin-left: 5px; ">
+                                                                <h:panelGrid columns="1" cellpadding="5">
+                                                                    <h:outputText value="#{n.date}" style="color: red"/>
+                                                                    <h:commandLink value="#{n.title}" action="#{navigate.itemPage()}">
+                                                                        <f:setPropertyActionListener target="#{navigate.selectNews}" value="#{n}"/>
+                                                                    </h:commandLink>
+                                                                </h:panelGrid>
+                                                            </p:outputPanel>
+                                                        </h:panelGrid>
+
+                                                    </p:dataGrid>
+                                                </h:form>
+                                            </div>
+                                        </div>
+                                        <!--  /World News -->
+
+                                    </div>
+                                    <!--  /Main Content -->
+
+                                    <!--  Left Sidebar -->
+                                    <div class="column-one-third">
+                                        <div class="sidebar">
+                                            <h5 class="line"><span>Stay Connected.</span></h5>
+                                            <ul class="social">
+                                                <li>
+                                                    <a href="#" class="facebook"><i class="icon-facebook"></i></a>
+                                                    <span>6,800 <br/> <i>fans</i></span>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="twitter"><i class="icon-twitter"></i></a>
+                                                    <span>12,475 <br/> <i>followers</i></span>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="rss"><i class="icon-rss"></i></a>
+                                                    <span><i>Subscribe via rss</i></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="sidebar">
+                                            <h5 class="line"><span>Ads Spot.</span></h5>
+                                            <ul class="ads125">
+                                                <li><a href="#"><img src="resources/img/banner/3.png" alt="MyPassion" /></a></li>
+                                                <li><a href="#"><img src="resources/img/banner/1.png" alt="MyPassion" /></a></li>
+                                                <li><a href="#"><img src="resources/img/banner/2.png" alt="MyPassion" /></a></li>
+                                                <li><a href="#"><img src="resources/img/banner/4.png" alt="MyPassion" /></a></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="sidebar">
+                                            <h5 class="line"><span>Ads Spot.</span></h5>
+                                            <a href="#"><img src="resources/img/tf_300x250_v1.gif" alt="MyPassion" /></a>     
+                                        </div>
+
+                                    </div>
+                                    <!-- /Left Sidebar -->
+
+                                </div>    
+                            </section>
+                            <!-- / Content -->
+                        </ui:insert>
+                    </div>
+
+                    <div>
+                        <ui:insert name="bottom">
+                            <!-- Footer -->
+                            <footer id="footer">
+                                <div class="container">
+                                    <div class="column-one-fourth">
+                                        <h5 class="line"><span>Tweets.</span></h5>
+                                        <div id="tweets"></div>
+                                    </div>
+                                    <div class="column-one-fourth">
+                                        <h5 class="line"><span>Navigation.</span></h5>
+                                        <ul class="footnav">
+                                            <li><a href="#"><i class="icon-right-open"></i> Cóc Tin.</a></li>
+                                            <li><a href="#"><i class="icon-right-open"></i> Cóc Sống.</a></li>
+                                            <li><a href="#"><i class="icon-right-open"></i> Cóc Học.</a></li>
+                                            <li><a href="#"><i class="icon-right-open"></i> Cóc Làm.</a></li>
+                                            <li><a href="#"><i class="icon-right-open"></i> Cóc Cụ.</a></li>
+                                            <li><a href="#"><i class="icon-right-open"></i> Cóc Buôn.</a></li>
+                                            <li><a href="#"><i class="icon-right-open"></i> FPT Edu.</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="column-one-fourth">
+                                        <h5 class="line"><span>Flickr Stream.</span></h5>
+                                        <div class="flickrfeed">
+                                            <ul id="basicuse" class="thumbs"><li class="hide"></li></ul>
+                                        </div>
+                                    </div>
+                                    <div class="column-one-fourth">
+                                        <h5 class="line"><span>About.</span></h5>
+                                        <p>Blandit rutrum, erat et egestas ultricies, dolor tortor egestas enim, quiste rhon cus sem purus eu sapien. Lorem ipsum dolor sit amet adipcising elit. Elit norem simuls tortor lorem adipcising purus mosteu dsapien egestas.</p>
+                                    </div>
+                                    <p class="copyright">Copyright 2013. All Rights Reserved</p>
+                                </div>
+                            </footer>
+                            <!-- / Footer -->
+                        </ui:insert>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+        <!-- / Body Wrapper -->
+
+        <!-- SCRIPTS -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js"/>
+        <h:outputScript library="js" name="easing.min.js"/>
+        <h:outputScript library="js" name="ui.js"/>
+        <h:outputScript library="js" name="carouFredSel.js"/>
+        <h:outputScript library="js" name="superfish.js"/>
+        <h:outputScript library="js" name="customM.js"/>
+        <h:outputScript library="js" name="flexslider-min.js"/>
+        <h:outputScript library="js" name="tweetable.js"/>
+        <h:outputScript library="js" name="timeago.js"/>
+        <h:outputScript library="js" name="jflickrfeed.min.js"/>
+        <h:outputScript library="js" name="mobilemenu.js"/>
+        <h:outputScript library="js" name="mypassion.js"/>
+
+
+    </h:body>
+
+</html>

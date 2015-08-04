@@ -6,16 +6,23 @@
 package bean;
 
 import dao.DataAccess;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import model.News;
 import org.primefaces.component.datatable.DataTable;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -24,7 +31,7 @@ import org.primefaces.context.RequestContext;
 @ManagedBean
 @RequestScoped
 public class NewsBean implements Serializable {
-    
+
     private int id;
     private String name;
     private String date;
@@ -38,41 +45,61 @@ public class NewsBean implements Serializable {
     private DataTable newsTable;
     private List<String> catagorys;
     private List<News> listFiltered;
-    private News selectNews;
+    private List<News> randomImages;
+    
+    DataAccess da = new DataAccess();
 
-    public NewsBean() {
+    public NewsBean() {        
+        
+        this.listNews = da.getAll();
+
+        this.catagorys = new LinkedList<>();
+        this.catagorys.add("Cóc Tin");
+        this.catagorys.add("Cóc Sống");
+        this.catagorys.add("Cóc Học");
+        this.catagorys.add("Cóc Làm");
+        this.catagorys.add("Cóc Cụ");
+        this.catagorys.add("Cóc Buôn");
+        this.catagorys.add("FPT Edu");
         
     }
-    
-    public String getImgPath(String str){
-        List<String> list = new LinkedList<>();
-        list.add(".png");
-        list.add(".jpg");
-        list.add(".bmp");
-        list.add(".gif");
         
-        int i1 = str.indexOf("img src=\"");
-        int i2 = 0;
-        for (String e : list) {
-            if ((str.toLowerCase()).contains(e)) {
-                i2 = str.indexOf(e);
-                break;
-            }
-        }
-        if (i1>0 && i2>0) {
-            return str.substring(i1, i2-i1+10).replaceAll("img src=\"", "");
-        }
+    public List<News> getRandom(){
+        Set<Integer> set = new HashSet<>();
+        Random rd = new Random();
+        List<News> list = new LinkedList<>();
         
-        return"";
+        while (set.size() < 5) {
+            int i = rd.nextInt(listNews.size());
+            set.add(i);
+        }
+        for (Integer s : set) {            
+            list.add(listNews.get(s));
+        }
+        return list;
     }
-    
-    public String add() {        
+
+    public String getImgPath(String str) {
+        
+        String pattern = "([a-z\\-_0-9\\/\\:\\.]*\\.(jpg|jpeg|png|gif))";
+
+        // Create a Pattern object
+        Pattern r = Pattern.compile(pattern);
+
+        // Now create matcher object.
+        Matcher m = r.matcher(str);
+        if (m.find()) {
+            return m.group(0);
+        } else {
+            return "";
+        }
+    }
+
+    public String add() {
         DataAccess da = new DataAccess();
-        this.name = "admin";        
-        this.img = getImgPath(details);
-        if ((title.trim()).isEmpty()) {
-            title="Empty";
-        }
+        this.name = "User 2";
+        this.img = getImgPath(this.details);
+        
         News news = new News(name, title, descript, details, category, img);
         boolean rs = da.addNews(news);
         if (rs) {
@@ -96,12 +123,12 @@ public class NewsBean implements Serializable {
         this.title = n.getTitle();
         this.descript = n.getDescript();
         this.details = n.getDetails();
-        this.category = n.getCategory();
-        this.img = n.getImg();
+        this.category = n.getCategory();        
         return "update";
     }
 
     public String doUpdate() {
+        this.img = getImgPath(this.details);
         News n = new News(name, title, descript, details, category, img);
         n.setId(id);
         DataAccess da = new DataAccess();
@@ -109,6 +136,15 @@ public class NewsBean implements Serializable {
         return "show";
     }
 
+  
+    public List<News> getRandomImage() {
+        return getRandom();
+    }
+
+    public void setRandomImage(List<News> getRandomImage) {
+        this.randomImages = getRandomImage;
+    }
+  
     public List<News> getListFiltered() {
         return listFiltered;
     }
@@ -118,11 +154,7 @@ public class NewsBean implements Serializable {
     }
 
     public List<String> getCatagorys() {
-        catagorys = new LinkedList<>();
-        catagorys.add("Category 1");
-        catagorys.add("Category 2");
-        catagorys.add("Category 3");
-        catagorys.add("Category 4");
+
         return catagorys;
     }
 
@@ -130,14 +162,6 @@ public class NewsBean implements Serializable {
         this.catagorys = catagorys;
     }
 
-    public News getSelectNews() {
-        return selectNews;
-    }
-
-    public void setSelectNews(News selectNews) {
-        this.selectNews = selectNews;
-    }
-    
     public DataTable getNewsTable() {
         return newsTable;
     }
@@ -147,8 +171,7 @@ public class NewsBean implements Serializable {
     }
 
     public List<News> getListNews() {
-        DataAccess da = new DataAccess();
-        this.listNews = da.getAll();        
+        this.listNews = da.getAll();
         return listNews;
     }
 
