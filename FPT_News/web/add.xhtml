@@ -14,8 +14,8 @@
                     
                     <h2>Post News</h2>
                     <h:form style="margin-left: 30px">  
+                        <p:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
                         
-                        <p:messages id="msgs"/>
                         <h:panelGrid columns="4" styleClass="left,centered" width="755"> 
                             
                             <p:inputText id ="title" requiredMessage="Title not empty and maximum 100 character" 
@@ -44,7 +44,7 @@
                         </p:editor>                        
                         
                         <h:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 10px;" >
-                            <h:commandButton value="Submit" action="${newsBean.add()}" style="margin-right: 5px;"/>
+                            <h:commandButton value="Publish" action="${newsBean.add()}" style="margin-right: 5px;"/>
 
                             <h:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" />
                         </h:panelGrid>                        

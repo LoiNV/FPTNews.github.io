@@ -6,7 +6,6 @@
 package bean;
 
 import dao.DataAccess;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -14,12 +13,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import model.News;
 import org.primefaces.component.datatable.DataTable;
@@ -103,8 +100,10 @@ public class NewsBean implements Serializable {
         News news = new News(name, title, descript, details, category, img);
         boolean rs = da.addNews(news);
         if (rs) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Publish Successful"));
             return "show";
         } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Publish Failed"));
             return "";
         }
     }
@@ -112,7 +111,13 @@ public class NewsBean implements Serializable {
     public String remove() {
         News n = (News) newsTable.getRowData();
         DataAccess da = new DataAccess();
-        da.removeNews(n.getId());
+        boolean rs = da.removeNews(n.getId());
+        if (rs) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "News was Deleted"));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Delete Failed"));
+        }
+        
         return "";
     }
 
@@ -132,13 +137,20 @@ public class NewsBean implements Serializable {
         News n = new News(name, title, descript, details, category, img);
         n.setId(id);
         DataAccess da = new DataAccess();
-        da.updateNews(n);
-        return "show";
+        boolean rs = da.updateNews(n);
+        if (rs) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Edit Successful"));
+            return "show";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Edit Failed"));
+            return "";
+        }
     }
 
   
     public List<News> getRandomImage() {
-        return getRandom();
+        this.randomImages = getRandom();
+        return this.randomImages;
     }
 
     public void setRandomImage(List<News> getRandomImage) {

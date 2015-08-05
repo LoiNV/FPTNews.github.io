@@ -16,7 +16,7 @@
                     
                     <h:form style="margin-left: 30px">
                         <p:growl id="growl" life="2000" />
-                        <p:messages id="msgs"/>
+                        <p:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
                         
                         <h:inputHidden value="${newsBean.id}"/>
                         <h:inputHidden value="${newsBean.name}"/>
@@ -51,7 +51,7 @@
                         <h:inputHidden value="${newsBean.img}"/>
                         
                         <h:panelGrid columns="2" style="margin-top: 10px; margin-bottom: 10px;" >
-                            <h:commandButton value="Submit" action="${newsBean.doUpdate()}" style="margin-right: 5px;"/>
+                            <h:commandButton value="Edit" action="${newsBean.doUpdate()}" style="margin-right: 5px;"/>
                             <h:commandButton value="Clear" type="button" onclick="PF('editorWidget').clear();" />
                         </h:panelGrid>
                     </h:form>

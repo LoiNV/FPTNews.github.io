@@ -14,7 +14,7 @@
                 <div>
                 <div id="page-wrapper" style="width: 95%;">
                     <h:form id="form">
-
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         <p:dataTable value="#{newsBean.listNews}" var="n" binding="#{newsBean.newsTable}" widgetVar="newsTable"
                                      rows="7" paginator="true" rowsPerPageTemplate="5,10,15" resizableColumns="false" 
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 

@@ -39,29 +39,34 @@ public class NavigateBean {
         this.listNews = da.getAll();
     }
 
-    public void searchStringValueChanged(ValueChangeEvent vce) {
-        
+    public void searchStringValueChanged(ValueChangeEvent vce) throws IOException {
+
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            keySearch = (String)vce.getNewValue();
+            keySearch = (String) vce.getNewValue();
             listSearch = new LinkedList<>();
             for (News n : listNews) {
                 if ((n.getTitle().toLowerCase()).contains(keySearch.toLowerCase())) {
                     listSearch.add(n);
+                } else {
                 }
             }
-            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect("search.xhtml");
+            if (itemByCategory.size() > 0) {
+                context.redirect("search.xhtml");
+            } else {
+                context.redirect("failed.xhtml");
+            }
         } catch (IOException ex) {
-            Logger.getLogger(NavigateBean.class.getName()).log(Level.SEVERE, null, ex);
+            context.redirect("failed.xhtml");
         }
     }
 
     public void searchPage() {
-        
-        
+
     }
 
-    public void categoryPage() {
+    public void categoryPage() throws IOException {
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         try {
             itemByCategory = new LinkedList<>();
             for (News c : listNews) {
@@ -70,19 +75,30 @@ public class NavigateBean {
                     itemByCategory.add(c);
                 }
             }
-            ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
-            context.redirect("category.xhtml");
+            if (itemByCategory.size() > 0) {                
+                context.redirect("category.xhtml");
+            } else {
+                context.redirect("failed.xhtml");
+            }
 
         } catch (IOException ex) {
-            Logger.getLogger(NewsBean.class.getName()).log(Level.SEVERE, null, ex);
+            context.redirect("failed.xhtml");
         }
     }
 
-    public String itemPage() {
+    public void itemPage() throws IOException {
+        
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        
+        try {
+            
+            this.selectCategory = this.selectNews.getCategory();
+            context.redirect("item.xhtml");
 
-        this.selectCategory = this.selectNews.getCategory();
+        } catch (Exception e) {
+            context.redirect("failed.xhtml");
+        }
 
-        return "item";
     }
 
     public String getKeySearch() {
