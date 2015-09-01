@@ -76,7 +76,7 @@ public class NavigateBean {
                 }
             }
             if (itemByCategory.size() > 0) {                
-                context.redirect("category.xhtml");
+                context.redirect("faces/category.xhtml");
             } else {
                 context.redirect("failed.xhtml");
             }
